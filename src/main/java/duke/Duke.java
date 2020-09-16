@@ -3,14 +3,14 @@ package duke;
 import duke.task.*;
 import duke.exception.DukeException;
 
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Duke {
+    private static final PrintWriter stdout = new PrintWriter(
+            new OutputStreamWriter(System.out, StandardCharsets.UTF_8), true);
     private static final String hLine = "──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────\n";
     private static final String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
@@ -22,7 +22,7 @@ public class Duke {
     private static final ArrayList<Task> tasks = new ArrayList<>();
 
     private static void greet() {
-        System.out.println(hLine + logo + " Hello! I'm Duke\n What can I do for you?\n" + hLine);
+        stdout.println(hLine + logo + " Hello! I'm Duke\n What can I do for you?\n" + hLine);
     }
 
     private static void loadDB() throws DukeException {
@@ -103,11 +103,11 @@ public class Duke {
             echo = sc.nextLine().trim();
             command = echo.split("\\s+")[0];
             if (command.equalsIgnoreCase("list")) {
-                System.out.println(hLine + " Here are the tasks in your list:");
+                stdout.println(hLine + " Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(" " + (i + 1) + "." + tasks.get(i));
+                    stdout.println(" " + (i + 1) + "." + tasks.get(i));
                 }
-                System.out.println(hLine);
+                stdout.println(hLine);
             } else if (command.equalsIgnoreCase("done")) {
                 try {
                     if (echo.length() < 6) {
@@ -115,13 +115,13 @@ public class Duke {
                     }
                     int selected = Integer.parseInt(echo.substring(5)) - 1;
                     tasks.get(selected).markAsDone();
-                    System.out.println(hLine + " Nice! I've marked this task as done: ");
-                    System.out.println("   " + tasks.get(selected) + "\n" + hLine);
+                    stdout.println(hLine + " Nice! I've marked this task as done: ");
+                    stdout.println("   " + tasks.get(selected) + "\n" + hLine);
                     updateDB();
                 } catch (DukeException e) {
-                    System.out.println(hLine + e.getMessage() + "\n" + hLine);
+                    stdout.println(hLine + e.getMessage() + "\n" + hLine);
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println(hLine + " ☹ OOPS!!! Please specify a valid task to mark as done"
+                    stdout.println(hLine + " ☹ OOPS!!! Please specify a valid task to mark as done"
                             + "\n" + hLine);
                 }
             } else if (command.equalsIgnoreCase("todo")) {
@@ -130,12 +130,12 @@ public class Duke {
                         throw new DukeException(" ☹ OOPS!!! The description of a todo cannot be empty.");
                     }
                     tasks.add(new ToDo(echo.substring(5)));
-                    System.out.println(hLine + " Got it. I've added this task:");
-                    System.out.println("   " + tasks.get(tasks.size() - 1));
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + hLine);
+                    stdout.println(hLine + " Got it. I've added this task:");
+                    stdout.println("   " + tasks.get(tasks.size() - 1));
+                    stdout.println(" Now you have " + tasks.size() + " tasks in the list.\n" + hLine);
                     updateDB();
                 } catch (DukeException e) {
-                    System.out.println(hLine + e.getMessage() + "\n" + hLine);
+                    stdout.println(hLine + e.getMessage() + "\n" + hLine);
                 }
             } else if (command.equalsIgnoreCase("deadline")) {
                 try {
@@ -144,14 +144,14 @@ public class Duke {
                     }
                     String[] deadL = echo.substring(9).split(" /by ", 2);
                     tasks.add(new Deadline(deadL[0], deadL[1]));
-                    System.out.println(hLine + " Got it. I've added this task:");
-                    System.out.println("   " + tasks.get(tasks.size() - 1));
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + hLine);
+                    stdout.println(hLine + " Got it. I've added this task:");
+                    stdout.println("   " + tasks.get(tasks.size() - 1));
+                    stdout.println(" Now you have " + tasks.size() + " tasks in the list.\n" + hLine);
                     updateDB();
                 } catch (DukeException e) {
-                    System.out.println(hLine + e.getMessage() + "\n" + hLine);
+                    stdout.println(hLine + e.getMessage() + "\n" + hLine);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println(hLine + " ☹ OOPS!!! Please use /by to specify date/time."
+                    stdout.println(hLine + " ☹ OOPS!!! Please use /by to specify date/time."
                             + "\n" + hLine);
                 }
             } else if (command.equalsIgnoreCase("event")) {
@@ -161,14 +161,14 @@ public class Duke {
                     }
                     String[] event = echo.substring(6).split(" /at ", 2);
                     tasks.add(new Event(event[0], event[1]));
-                    System.out.println(hLine + " Got it. I've added this task:");
-                    System.out.println("   " + tasks.get(tasks.size() - 1));
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + hLine);
+                    stdout.println(hLine + " Got it. I've added this task:");
+                    stdout.println("   " + tasks.get(tasks.size() - 1));
+                    stdout.println(" Now you have " + tasks.size() + " tasks in the list.\n" + hLine);
                     updateDB();
                 } catch (DukeException e) {
-                    System.out.println(hLine + e.getMessage() + "\n" + hLine);
+                    stdout.println(hLine + e.getMessage() + "\n" + hLine);
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println(hLine + " ☹ OOPS!!! Please use /at to specify start/end time."
+                    stdout.println(hLine + " ☹ OOPS!!! Please use /at to specify start/end time."
                             + "\n" + hLine);
                 }
             } else if (command.equalsIgnoreCase("delete")) {
@@ -179,25 +179,25 @@ public class Duke {
                     int selected = Integer.parseInt(echo.substring(7)) - 1;
                     Task removed = tasks.get(selected);
                     tasks.remove(selected);
-                    System.out.println(hLine + " Noted! I've removed this task: ");
-                    System.out.println("   " + removed);
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.\n" + hLine);
+                    stdout.println(hLine + " Noted! I've removed this task: ");
+                    stdout.println("   " + removed);
+                    stdout.println(" Now you have " + tasks.size() + " tasks in the list.\n" + hLine);
                     updateDB();
                 } catch (DukeException e) {
-                    System.out.println(hLine + e.getMessage() + "\n" + hLine);
+                    stdout.println(hLine + e.getMessage() + "\n" + hLine);
                 } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println(hLine + " ☹ OOPS!!! Please specify a valid task to delete"
+                    stdout.println(hLine + " ☹ OOPS!!! Please specify a valid task to delete"
                             + "\n" + hLine);
                 }
             } else if (!command.equalsIgnoreCase("bye")) {
                 try {
                     throw new DukeException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } catch (DukeException e) {
-                    System.out.println(hLine + e.getMessage() + "\n" + hLine);
+                    stdout.println(hLine + e.getMessage() + "\n" + hLine);
                 }
             }
         }
-        System.out.println(hLine + " Bye! Hope to see you again soon!\n" + hLine);
+        stdout.println(hLine + " Bye! Hope to see you again soon!\n" + hLine);
     }
 
     public static void main(String[] args) {
@@ -207,7 +207,7 @@ public class Duke {
             loadDB();
             mainTask();
         } catch (DukeException e) {
-            System.out.println(hLine + e.getMessage() + "\n" + hLine);
+            stdout.println(hLine + e.getMessage() + "\n" + hLine);
         }
         sc.close();
     }
