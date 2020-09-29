@@ -1,3 +1,7 @@
+/**
+ * Handles the different commands
+ */
+
 package duke;
 
 import duke.exception.DukeException;
@@ -129,8 +133,8 @@ public class Command {
             }
             String keyword = echo.substring(5);
             Ui.stdout.println(Ui.hLine + " Here are the matching tasks in your list:");
-            for (int i =0; i< Duke.tasks.size(); i++){
-                if(Duke.tasks.get(i).getDescription().contains(keyword)){
+            for (int i = 0; i < Duke.tasks.size(); i++) {
+                if (Duke.tasks.get(i).getDescription().contains(keyword)) {
                     Ui.stdout.println(Duke.tasks.get(i));
                 }
             }

@@ -1,3 +1,7 @@
+/**
+ * Task class to inherit from
+ */
+
 package duke.task;
 
 public class Task {
@@ -29,6 +33,5 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
-
 
 }

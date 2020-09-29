@@ -1,3 +1,7 @@
+/**
+ * Arraylist to store all the different tasks
+ */
+
 package duke;
 
 import duke.task.Task;
