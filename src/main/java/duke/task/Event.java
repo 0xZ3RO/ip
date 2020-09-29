@@ -1,25 +1,29 @@
+/**
+ * Inherit from Task
+ */
+
 package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    protected String at;
+    protected String timing;
     protected LocalDate date;
 
-    public Event(String description, String at) {
+    public Event(String description, String timing) {
         super(description);
-        this.at = at;
-        date = LocalDate.parse(at.split(" ")[0]);
+        this.timing = timing;
+        date = LocalDate.parse(timing.split(" ")[0]);
     }
 
-    public String getAt() {
-        return at;
+    public String getTiming() {
+        return timing;
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (at: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy "))
-                + at.split(" ")[1] + ")";
+                + timing.split(" ")[1] + ")";
     }
 }

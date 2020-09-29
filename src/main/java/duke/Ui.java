@@ -1,3 +1,7 @@
+/**
+ * Handles user interaction
+ */
+
 package duke;
 
 import java.io.OutputStreamWriter;

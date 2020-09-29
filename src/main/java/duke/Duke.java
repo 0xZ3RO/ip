@@ -1,3 +1,9 @@
+/**
+ * Main class
+ * Program starts from here
+ */
+
+
 package duke;
 
 import duke.exception.DukeException;

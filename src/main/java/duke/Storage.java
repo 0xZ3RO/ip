@@ -1,3 +1,8 @@
+/**
+ * Handles the IO
+ * Manages the database
+ */
+
 package duke;
 
 import duke.exception.DukeException;
@@ -20,17 +25,17 @@ public class Storage {
     static void loadDB() throws DukeException {
         String home = System.getProperty("user.home");
         filePath = Paths.get(home, "Desktop", "DB.txt");
-        boolean directoryExists = Files.exists(filePath);
-        if (directoryExists) {
+        boolean isExistingDirectory = Files.exists(filePath);
+        if (isExistingDirectory) {
             File f = new File(String.valueOf(filePath));
-            Scanner s;
+            Scanner scan;
             try {
-                s = new Scanner(f);
+                scan = new Scanner(f);
             } catch (FileNotFoundException e) {
                 throw new DukeException(" ☹ OOPS!!! Unable to find database.");
             }
-            while (s.hasNext()) {
-                String taskToProcess = s.nextLine();
+            while (scan.hasNext()) {
+                String taskToProcess = scan.nextLine();
                 String[] subSec = taskToProcess.split(" \\| ");
                 switch (subSec[0]) {
                 case "T":
@@ -50,8 +55,8 @@ public class Storage {
         } else {
             File yourFile = new File(String.valueOf(filePath));
             try {
-                boolean success = yourFile.createNewFile();
-                if (!success) {
+                boolean isSuccessful = yourFile.createNewFile();
+                if (!isSuccessful) {
                     throw new DukeException(" ☹ OOPS!!! Unable to create database.");
                 }
             } catch (IOException e) {
@@ -74,12 +79,12 @@ public class Storage {
                     toWrite += "E | ";
                     toWrite += (task.getDone() ? "1" : "0") + " | ";
                     toWrite += task.getDescription() + " | ";
-                    toWrite += ((Event) task).getAt();
+                    toWrite += ((Event) task).getTiming();
                 } else if (task instanceof Deadline) {
                     toWrite += "D | ";
                     toWrite += (task.getDone() ? "1" : "0") + " | ";
                     toWrite += task.getDescription() + " | ";
-                    toWrite += ((Deadline) task).getBy();
+                    toWrite += ((Deadline) task).getDueDate();
                 }
                 fw.write(toWrite + System.lineSeparator());
             }

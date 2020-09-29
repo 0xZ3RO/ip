@@ -1,3 +1,8 @@
+/**
+ * Parsers all commands
+ * Checks if commands are valid
+ */
+
 package duke;
 
 public class Parser {
