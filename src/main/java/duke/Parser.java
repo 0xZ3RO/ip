@@ -19,6 +19,8 @@ public class Parser {
                 Command.handleEvent(echo);
             } else if (command.equalsIgnoreCase("delete")) {
                 Command.handleDelete(echo);
+            } else if (command.equalsIgnoreCase("find")) {
+                Command.handleFind(echo);
             } else if (!command.equalsIgnoreCase("bye")) {
                 Command.handleUnknown();
             }
