@@ -15,6 +15,6 @@ public class Ui {
             + "|____/ \\__,_|_|\\_\\___|\n";
 
     static void greet() {
-                stdout.println(hLine + logo + " Hello! I'm Duke\n What can I do for you?\n" + hLine);
-            }
+        stdout.println(hLine + logo + " Hello! I'm Duke\n What can I do for you?\n" + hLine);
+    }
 }
