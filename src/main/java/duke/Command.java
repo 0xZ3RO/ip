@@ -6,6 +6,8 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.time.format.DateTimeParseException;
+
 public class Command {
     protected static void handleList() {
         Ui.stdout.println(Ui.hLine + " Here are the tasks in your list:");
@@ -64,6 +66,9 @@ public class Command {
         } catch (IndexOutOfBoundsException e) {
             Ui.stdout.println(Ui.hLine + " ☹ OOPS!!! Please use /by to specify date/time."
                     + "\n" + Ui.hLine);
+        } catch (DateTimeParseException e) {
+            Ui.stdout.println(Ui.hLine + " ☹ OOPS!!! Please use the correct date format."
+                    + "\n" + Ui.hLine);
         }
     }
 
@@ -82,6 +87,9 @@ public class Command {
             Ui.stdout.println(Ui.hLine + e.getMessage() + "\n" + Ui.hLine);
         } catch (IndexOutOfBoundsException e) {
             Ui.stdout.println(Ui.hLine + " ☹ OOPS!!! Please use /at to specify start/end time."
+                    + "\n" + Ui.hLine);
+        } catch (DateTimeParseException e) {
+            Ui.stdout.println(Ui.hLine + " ☹ OOPS!!! Please use the correct date format."
                     + "\n" + Ui.hLine);
         }
     }
