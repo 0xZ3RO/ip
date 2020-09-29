@@ -121,4 +121,22 @@ public class Command {
                     + "\n" + Ui.hLine);
         }
     }
+
+    public static void handleFind(String echo) {
+        try {
+            if (echo.length() < 6) {
+                throw new DukeException(" ☹ OOPS!!! Please specify the task to find.");
+            }
+            String keyword = echo.substring(5);
+            Ui.stdout.println(Ui.hLine + " Here are the matching tasks in your list:");
+            for (int i =0; i< Duke.tasks.size(); i++){
+                if(Duke.tasks.get(i).getDescription().contains(keyword)){
+                    Ui.stdout.println(Duke.tasks.get(i));
+                }
+            }
+            Ui.stdout.println(Ui.hLine);
+        } catch (DukeException e) {
+            Ui.stdout.println(Ui.hLine + e.getMessage() + "\n" + Ui.hLine);
+        }
+    }
 }
