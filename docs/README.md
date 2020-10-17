@@ -1,4 +1,7 @@
-# User Guide
+# User Guide 
+
+## Getting started
+To ensure that all outputs are displayed correctly, please run the program in an environment where the output is displayed in UTF-8 with a suitable font like Raster Fonts. To get a list of commands to use, enter `help` into the program.
 
 ## Features 
 
@@ -29,30 +32,36 @@ Example of usage:
 Expected outcome:
 
 ```
-  Added: [T][✘] borrow book
-  You now have 1 task in your list.
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Got it. I've added this task:
+  [T][✘] borrow book
+ Now you have 1 tasks in the list.
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
 ```
 
 ### `event` - Adds an upcoming event with the date to the list
 Creates an event with the given description and date, then stores it in the list of existing tasks.
-`event [description] /at [when (format: yyyy-mm-dd hhmm)]`
+`event <description> /at <when (format: yyyy-mm-dd hhmm)>`
 
 Example of usage:
 
 ```
-> event project meeting /at 29/09/20 1000
+> event project meeting /at 2019-10-15 1000
 ```
 
 Expected outcome:
 
 ```
-  Added: [E][✘] project meeting (at: Oct 15 2019 1000)
-  You now have 2 tasks in your list.
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Got it. I've added this task:
+   [E][✘] project meeting (at: Oct 15 2019 1000)
+ Now you have 2 tasks in the list.
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
 ```
 
 ### `deadline` - Adds a task with a deadline to the list
 Creates a task with the given description and deadline, then stores it in the list of existing tasks.
-`deadline [description] /by [when (format: yyyy-mm-dd hhmm)]`
+`deadline <description> /by <when (format: yyyy-mm-dd hhmm)>`
 
 Example of usage:
 
@@ -63,8 +72,11 @@ Example of usage:
 Expected outcome:
 
 ```
-  Added: [D][✘] return book (at: Oct 15 2019 1000)
-  You now have 3 tasks in your list.
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Got it. I've added this task:
+   [D][✘] return book (by: Oct 15 2019 1000)
+ Now you have 3 tasks in the list.
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
 ```
 
 ### `done` - Marks a task as done
@@ -81,8 +93,10 @@ Example of usage:
 Expected outcome:
 
 ```
-  Ok! I've marked this task as done:
-    [E][✓] project meeting (at: Oct 15 2019 1000)
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Nice! I've marked this task as done: 
+   [E][✓] project meeting (at: Oct 15 2019 1000)
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
 ```
 
 ### `delete` - Deletes a task
@@ -99,8 +113,11 @@ Example of usage:
 Expected outcome:
 
 ```
-  Ok! I've deleted this task:
-    [T][✘] borrow book
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Noted! I've removed this task: 
+   [T][✘] borrow book
+ Now you have 2 tasks in the list.
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
 ```
 
 
@@ -116,7 +133,74 @@ Example of usage:
 Expected outcome:
 
 ```
-  Here are the tasks that contains the text "beef"
-  1. [D][✘] return book (at: Oct 15 2019 1000)
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Here are the matching tasks in your list:
+  [D][✘] return book (by: Oct 15 2019 1000)
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
 ```
 
+
+### `list` - List tasks 
+List the stored tasks.
+`list`
+
+Example of usage: 
+```
+> list
+```
+
+Expected outcome:
+
+```
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Here are the tasks in your list:
+   1. [E][✓] project meeting (at: Oct 15 2019 1000)
+   2. [D][✘] return book (by: Oct 15 2019 1000)
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+```
+
+
+### `help` - Show commands
+Show the list of available commands.
+`help`
+
+Example of usage: 
+```
+> help
+```
+
+Expected outcome:
+
+```
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Here are the available commands:
+   Help
+   List
+   Todo <task>
+   Deadline <task> /by <when (format: yyyy-mm-dd hhmm)>
+   Event <task> /at <when (format: yyyy-mm-dd hhmm)>
+   Done <index>
+   Delete <index>
+   Find <task>
+   Bye
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+```
+
+
+
+### `bye` - Exits program
+Exits the program.
+`bye`
+
+Example of usage: 
+```
+> bye
+```
+
+Expected outcome:
+
+```
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+ Bye! Hope to see you again soon!
+──────────────────────────── ⋆⋅☆⋅⋆ ────────────────────────────
+```
