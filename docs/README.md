@@ -40,7 +40,7 @@ Creates an event with the given description and date, then stores it in the list
 Example of usage:
 
 ```
-> event project meeting /at 29/09/20 1000
+> event project meeting /at 2019-10-15 1000
 ```
 
 Expected outcome:
