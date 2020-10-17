@@ -12,7 +12,9 @@ import duke.task.ToDo;
 
 import java.time.format.DateTimeParseException;
 
+// Handles the different commands based on the given input
 public class Command {
+    // Displays the currently stored tasks in the list
     protected static void handleList() {
         Ui.stdout.println(Ui.hLine + " Here are the tasks in your list:");
         for (int i = 0; i < Duke.tasks.size(); i++) {
@@ -21,6 +23,7 @@ public class Command {
         Ui.stdout.println(Ui.hLine);
     }
 
+    // Marks a task as done based on the given index
     protected static void handleDone(String echo) {
         try {
             if (echo.length() < 6) {
@@ -33,12 +36,16 @@ public class Command {
             Storage.updateDB();
         } catch (DukeException e) {
             Ui.stdout.println(Ui.hLine + e.getMessage() + "\n" + Ui.hLine);
+        } catch (NumberFormatException e) {
+            Ui.stdout.println(Ui.hLine + " ☹ OOPS!!! Please specify a valid number to mark as done"
+                    + "\n" + Ui.hLine);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             Ui.stdout.println(Ui.hLine + " ☹ OOPS!!! Please specify a valid task to mark as done"
                     + "\n" + Ui.hLine);
         }
     }
 
+    // Adds a todo to the task list
     protected static void handleTodo(String echo) {
         try {
             if (echo.length() < 6) {
@@ -54,6 +61,7 @@ public class Command {
         }
     }
 
+    // Adds a deadline to the task list
     protected static void handleDL(String echo) {
         try {
             if (echo.length() < 10) {
@@ -76,10 +84,11 @@ public class Command {
         }
     }
 
+    // Adds an event to the task list
     protected static void handleEvent(String echo) {
         try {
             if (echo.length() < 7) {
-                throw new DukeException(" ☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeException(" ☹ OOPS!!! The description of a event cannot be empty.");
             }
             String[] event = echo.substring(6).split(" /at ", 2);
             Duke.tasks.add(new Event(event[0], event[1]));
@@ -98,6 +107,7 @@ public class Command {
         }
     }
 
+    // Handles unknown commands
     protected static void handleUnknown() {
         try {
             throw new DukeException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -106,6 +116,7 @@ public class Command {
         }
     }
 
+    // Deletes task based on the given index
     protected static void handleDelete(String echo) {
         try {
             if (echo.length() < 8) {
@@ -120,12 +131,16 @@ public class Command {
             Storage.updateDB();
         } catch (DukeException e) {
             Ui.stdout.println(Ui.hLine + e.getMessage() + "\n" + Ui.hLine);
+        } catch (NumberFormatException e) {
+            Ui.stdout.println(Ui.hLine + " ☹ OOPS!!! Please specify a valid number to delete"
+                    + "\n" + Ui.hLine);
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             Ui.stdout.println(Ui.hLine + " ☹ OOPS!!! Please specify a valid task to delete"
                     + "\n" + Ui.hLine);
         }
     }
 
+    // Finds tasks based on the given word
     public static void handleFind(String echo) {
         try {
             if (echo.length() < 6) {
@@ -142,5 +157,20 @@ public class Command {
         } catch (DukeException e) {
             Ui.stdout.println(Ui.hLine + e.getMessage() + "\n" + Ui.hLine);
         }
+    }
+
+    // Prints the list of commands and their formats
+    public static void handleHelp() {
+        Ui.stdout.println(Ui.hLine + " Here are the available commands:");
+        Ui.stdout.println(" Help");
+        Ui.stdout.println(" List");
+        Ui.stdout.println(" Todo task");
+        Ui.stdout.println(" Deadline task /by yyyy-mm-dd time");
+        Ui.stdout.println(" Event task /at yyyy-mm-dd time");
+        Ui.stdout.println(" Done index");
+        Ui.stdout.println(" Delete index");
+        Ui.stdout.println(" Find task_to_find");
+        Ui.stdout.println(" Bye");
+        Ui.stdout.println(Ui.hLine);
     }
 }

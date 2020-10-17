@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
+// Handles all user interface related output
 public class Ui {
     static final PrintWriter stdout = new PrintWriter(
             new OutputStreamWriter(System.out, StandardCharsets.UTF_8), true);

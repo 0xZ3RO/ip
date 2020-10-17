@@ -1,11 +1,13 @@
 /**
- * Parsers all commands
+ * Parses all commands
  * Checks if commands are valid
  */
 
 package duke;
 
+// Parses all commands and resolves them
 public class Parser {
+    // Main program flow starts here
     static void mainTask() {
         String echo;
         String command = "";
@@ -26,6 +28,8 @@ public class Parser {
                 Command.handleDelete(echo);
             } else if (command.equalsIgnoreCase("find")) {
                 Command.handleFind(echo);
+            } else if (command.equalsIgnoreCase("help")) {
+                Command.handleHelp();
             } else if (!command.equalsIgnoreCase("bye")) {
                 Command.handleUnknown();
             }

@@ -19,12 +19,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
+// Handles all database related inputs and outputs
 public class Storage {
     private static java.nio.file.Path filePath;
 
+    // Loads the database
     static void loadDB() throws DukeException {
-        String home = System.getProperty("user.home");
-        filePath = Paths.get(home, "Desktop", "DB.txt");
+        String home = Paths.get("").toAbsolutePath().toString();
+        filePath = Paths.get(home, "DB.txt");
         boolean isExistingDirectory = Files.exists(filePath);
         if (isExistingDirectory) {
             File f = new File(String.valueOf(filePath));
@@ -65,6 +67,7 @@ public class Storage {
         }
     }
 
+    // Updates the database
     static void updateDB() throws DukeException {
         try {
             FileWriter fw = new FileWriter(String.valueOf(filePath));
