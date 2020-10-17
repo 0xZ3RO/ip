@@ -1,4 +1,7 @@
-# User Guide
+# User Guide 
+
+## Getting started
+To ensure that all outputs are displayed correctly, please run the program in an environment where the output is displayed in UTF-8 with a suitable font like Raster Fonts. To get a list of commands to use, enter `help` into the program.
 
 ## Features 
 
