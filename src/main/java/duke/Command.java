@@ -18,7 +18,7 @@ public class Command {
     protected static void handleList() {
         Ui.stdout.println(Ui.hLine + " Here are the tasks in your list:");
         for (int i = 0; i < Duke.tasks.size(); i++) {
-            Ui.stdout.println(" " + (i + 1) + "." + Duke.tasks.get(i));
+            Ui.stdout.println("   " + (i + 1) + ". " + Duke.tasks.get(i));
         }
         Ui.stdout.println(Ui.hLine);
     }
@@ -68,6 +68,9 @@ public class Command {
                 throw new DukeException(" ☹ OOPS!!! The description of a deadline cannot be empty.");
             }
             String[] deadL = echo.substring(9).split(" /by ", 2);
+            if (deadL[1].length() != 15) {
+                throw new DukeException(" ☹ OOPS!!! The date/time of a deadline is formatted incorrectly.");
+            }
             Duke.tasks.add(new Deadline(deadL[0], deadL[1]));
             Ui.stdout.println(Ui.hLine + " Got it. I've added this task:");
             Ui.stdout.println("   " + Duke.tasks.get(Duke.tasks.size() - 1));
@@ -88,9 +91,12 @@ public class Command {
     protected static void handleEvent(String echo) {
         try {
             if (echo.length() < 7) {
-                throw new DukeException(" ☹ OOPS!!! The description of a event cannot be empty.");
+                throw new DukeException(" ☹ OOPS!!! The description of an event cannot be empty.");
             }
             String[] event = echo.substring(6).split(" /at ", 2);
+            if (event[1].length() != 15) {
+                throw new DukeException(" ☹ OOPS!!! The date/time of an event is formatted incorrectly.");
+            }
             Duke.tasks.add(new Event(event[0], event[1]));
             Ui.stdout.println(Ui.hLine + " Got it. I've added this task:");
             Ui.stdout.println("   " + Duke.tasks.get(Duke.tasks.size() - 1));
@@ -150,7 +156,7 @@ public class Command {
             Ui.stdout.println(Ui.hLine + " Here are the matching tasks in your list:");
             for (int i = 0; i < Duke.tasks.size(); i++) {
                 if (Duke.tasks.get(i).getDescription().contains(keyword)) {
-                    Ui.stdout.println(Duke.tasks.get(i));
+                    Ui.stdout.println("   " + Duke.tasks.get(i));
                 }
             }
             Ui.stdout.println(Ui.hLine);
@@ -162,15 +168,15 @@ public class Command {
     // Prints the list of commands and their formats
     public static void handleHelp() {
         Ui.stdout.println(Ui.hLine + " Here are the available commands:");
-        Ui.stdout.println(" Help");
-        Ui.stdout.println(" List");
-        Ui.stdout.println(" Todo task");
-        Ui.stdout.println(" Deadline task /by yyyy-mm-dd time");
-        Ui.stdout.println(" Event task /at yyyy-mm-dd time");
-        Ui.stdout.println(" Done index");
-        Ui.stdout.println(" Delete index");
-        Ui.stdout.println(" Find task_to_find");
-        Ui.stdout.println(" Bye");
+        Ui.stdout.println("   Help");
+        Ui.stdout.println("   List");
+        Ui.stdout.println("   Todo <task>");
+        Ui.stdout.println("   Deadline <task> /by <when (format: yyyy-mm-dd hhmm)>");
+        Ui.stdout.println("   Event <task> /at <when (format: yyyy-mm-dd hhmm)>");
+        Ui.stdout.println("   Done <index>");
+        Ui.stdout.println("   Delete <index>");
+        Ui.stdout.println("   Find <task>");
+        Ui.stdout.println("   Bye");
         Ui.stdout.println(Ui.hLine);
     }
 }
